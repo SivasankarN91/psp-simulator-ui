@@ -70,50 +70,52 @@ function LogDetail() {
       </div>
 
       <div className="card">
-        <h2>Webhook Logs</h2>
-        {webhooks.map((wh, i) => (
-          <div key={wh.id}>
-            <div className="result-box">
-              <div className="result-row">
-                <span className="result-label">Delivery Status</span>
-                <span className={getBadgeClass(wh.deliveryStatus)}>
-                  {wh.deliveryStatus}
-                </span>
-                {wh.deliveryDurationMs && (
-  <div className="result-row">
-    <span className="result-label">Response Time</span>
-    <span className="result-value">{wh.deliveryDurationMs}ms</span>
-  </div>
-)}
-{wh.errorReason && (
-  <div className="result-row">
-    <span className="result-label">Error Reason</span>
-    <span className="result-value" style={{ color: "#fc8181" }}>
-      {wh.errorReason}
-    </span>
-  </div>
-)}
-              </div>
-              <div className="result-row">
-                <span className="result-label">Response Status</span>
-                <span className="result-value">{wh.responseStatus}</span>
-              </div>
-              <div className="result-row">
-                <span className="result-label">Delivered At</span>
-                <span className="result-value">
-                  {new Date(wh.deliveredAt).toLocaleString()}
-                </span>
-              </div>
-            </div>
-            <div className="payload-box">
-              {JSON.stringify(JSON.parse(wh.webhookPayload), null, 2)}
-            </div>
+  <h2>Webhook Logs</h2>
+  {webhooks.map((wh) => (
+    <div key={wh.id}>
+      <div className="result-box">
+        <div className="result-row">
+          <span className="result-label">Delivery Status</span>
+          <span className={getBadgeClass(wh.deliveryStatus)}>
+            {wh.deliveryStatus}
+          </span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Response Status</span>
+          <span className="result-value">
+            {wh.responseStatus || "No response received"}
+          </span>
+        </div>
+        {wh.deliveryDurationMs && (
+          <div className="result-row">
+            <span className="result-label">Response Time</span>
+            <span className="result-value">{wh.deliveryDurationMs}ms</span>
           </div>
-        ))}
-        {webhooks.length === 0 && (
-          <p className="text-muted">No webhook logs yet.</p>
         )}
+        {wh.errorReason && (
+          <div className="result-row">
+            <span className="result-label">Error Reason</span>
+            <span className="result-value" style={{ color: "#fc8181" }}>
+              {wh.errorReason}
+            </span>
+          </div>
+        )}
+        <div className="result-row">
+          <span className="result-label">Delivered At</span>
+          <span className="result-value">
+            {new Date(wh.deliveredAt).toLocaleString()}
+          </span>
+        </div>
       </div>
+      <div className="payload-box">
+        {JSON.stringify(JSON.parse(wh.webhookPayload), null, 2)}
+      </div>
+    </div>
+  ))}
+  {webhooks.length === 0 && (
+    <p className="text-muted">No webhook logs yet.</p>
+  )}
+</div>
     </div>
   );
 }
