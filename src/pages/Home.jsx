@@ -211,26 +211,44 @@ function Home() {
         </div>
       )}
 
-      {webhookLog && (
-        <div className="card">
-          <h2>Webhook Delivery</h2>
-          <div className="result-box">
-            <div className="result-row">
-              <span className="result-label">Delivery Status</span>
-              <span className={getBadgeClass(webhookLog.deliveryStatus)}>
-                {webhookLog.deliveryStatus}
-              </span>
-            </div>
-            <div className="result-row">
-              <span className="result-label">Response Status</span>
-              <span className="result-value">{webhookLog.responseStatus}</span>
-            </div>
-          </div>
-          <div className="payload-box">
-            {JSON.stringify(JSON.parse(webhookLog.webhookPayload), null, 2)}
-          </div>
+     {webhookLog && (
+  <div className="card">
+    <h2>Webhook Delivery</h2>
+    <div className="result-box">
+      <div className="result-row">
+        <span className="result-label">Delivery Status</span>
+        <span className={getBadgeClass(webhookLog.deliveryStatus)}>
+          {webhookLog.deliveryStatus}
+        </span>
+      </div>
+      <div className="result-row">
+        <span className="result-label">Response Status</span>
+        <span className="result-value">
+          {webhookLog.responseStatus || "No response received"}
+        </span>
+      </div>
+      {webhookLog.deliveryDurationMs && (
+        <div className="result-row">
+          <span className="result-label">Response Time</span>
+          <span className="result-value">
+            {webhookLog.deliveryDurationMs}ms
+          </span>
         </div>
       )}
+      {webhookLog.errorReason && (
+        <div className="result-row">
+          <span className="result-label">Error Reason</span>
+          <span className="result-value" style={{ color: "#fc8181" }}>
+            {webhookLog.errorReason}
+          </span>
+        </div>
+      )}
+    </div>
+    <div className="payload-box">
+      {JSON.stringify(JSON.parse(webhookLog.webhookPayload), null, 2)}
+    </div>
+  </div>
+)}
     </div>
   );
 }
