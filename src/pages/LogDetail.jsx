@@ -79,6 +79,20 @@ function LogDetail() {
                 <span className={getBadgeClass(wh.deliveryStatus)}>
                   {wh.deliveryStatus}
                 </span>
+                {wh.deliveryDurationMs && (
+  <div className="result-row">
+    <span className="result-label">Response Time</span>
+    <span className="result-value">{wh.deliveryDurationMs}ms</span>
+  </div>
+)}
+{wh.errorReason && (
+  <div className="result-row">
+    <span className="result-label">Error Reason</span>
+    <span className="result-value" style={{ color: "#fc8181" }}>
+      {wh.errorReason}
+    </span>
+  </div>
+)}
               </div>
               <div className="result-row">
                 <span className="result-label">Response Status</span>
